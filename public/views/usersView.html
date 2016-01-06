@@ -1,0 +1,23 @@
+<h3>Users</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in users">
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td><a href="javascript:void(0)" ng-click="showDetails(user)">Follow</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="alert alert-danger" ng-if="error">
+    <strong>There was an error while processing your request: </strong>
+    <br>
+    <pre>{{error.data | json}}</pre>
+</div>
