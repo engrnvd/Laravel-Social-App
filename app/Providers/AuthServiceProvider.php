@@ -4,8 +4,12 @@ namespace App\Providers;
 
 use App\Connection;
 use App\Policies\ConnectionPolicy;
+use App\Policies\SettingsPolicy;
 use App\Policies\SkillPolicy;
+use App\Policies\UserPolicy;
+use App\Setting;
 use App\Skill;
+use App\User;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -20,6 +24,8 @@ class AuthServiceProvider extends ServiceProvider
         'App\Model' => 'App\Policies\ModelPolicy',
         Skill::class => SkillPolicy::class,
         Connection::class => ConnectionPolicy::class,
+        Setting::class => SettingsPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**

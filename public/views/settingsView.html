@@ -1,0 +1,41 @@
+<div class="col-sm-6 col-sm-offset-3">
+    <h2 class="text-center">Your Settings</h2>
+
+    <p class="alert alert-danger" ng-if="error">{{error}}</p>
+
+    <p class="alert alert-success" ng-if="message">{{message}}</p>
+
+    <table class="table">
+
+        <thead>
+        <tr>
+            <th>Option</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>Who can see my skills</td>
+            <td>
+                <select class="form-control" ng-model="settings.who_can_see_my_skills"
+                        ng-options="item as item for item in options"></select>
+            </td>
+        </tr>
+        <tr>
+            <td>Who can see who I am following</td>
+            <td>
+                <select class="form-control" ng-model="settings.who_can_see_who_i_am_following"
+                        ng-options="item as item for item in options"></select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button class="btn btn-success form-control" ng-click="saveSettings()">Save</button>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>

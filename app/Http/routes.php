@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('index');
 });
@@ -28,6 +29,7 @@ Route::group(['prefix' => 'api'], function()
 
     Route::resource('skill', 'SkillController');
     Route::resource('users', 'UsersController');
+    Route::resource('setting', 'SettingsController');
 });
 
 /*

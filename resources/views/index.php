@@ -26,6 +26,7 @@
             <ul class="nav navbar-nav navbar-right" ng-controller="UserController as user">
                 <li><a href="#/home">Home</a></li>
                 <li><a href="#/users">Explore Other Users</a></li>
+                <li><a href="#/settings">Settings</a></li>
                 <li><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -49,4 +50,5 @@
 <script src="scripts/authController.js"></script>
 <script src="scripts/userController.js"></script>
 <script src="scripts/usersController.js"></script>
+<script src="scripts/settingsController.js"></script>
 </html>

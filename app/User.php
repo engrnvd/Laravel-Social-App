@@ -42,4 +42,14 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class,"connections",'follower','follows');
     }
 
+    public function settings()
+    {
+        return $this->hasOne(Setting::class);
+    }
+
+    public function isFollowing($user)
+    {
+       return $this->following()->find($user->id);
+    }
+
 }

@@ -15,8 +15,18 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger("user_id");
-            $table->string("option");
-            $table->string("value");
+            $table->enum("who_can_see_my_skills",[
+                'Everyone',
+                'Only me',
+                'Only those who are following me',
+                'Only those I am following'
+            ])->default('Everyone');
+            $table->enum("who_can_see_who_i_am_following",[
+                'Everyone',
+                'Only me',
+                'Only those who are following me',
+                'Only those I am following'
+            ])->default('Everyone');
             $table->timestamps();
 
             $table->foreign('user_id')

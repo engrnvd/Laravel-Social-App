@@ -21,19 +21,19 @@
 
     <h4>Skills</h4>
 
-    <p class="alert alert-info" ng-if="!skills.length">{{user.name}} has not mentioned any skills yet.</p>
+    <p class="alert alert-warning" ng-if="skillsError">{{skillsError}}</p>
     <ul ng-if="skills.length">
         <li ng-repeat="skill in skills">{{skill.name}}</li>
     </ul>
 
     <h4>Following</h4>
-    <p class="alert alert-info" ng-if="!following.length">{{user.name}} is not following anyone yet.</p>
+    <p class="alert alert-warning" ng-if="followingError">{{followingError}}</p>
     <ul ng-if="following.length">
         <li ng-repeat="user in following">{{user.name}}</li>
     </ul>
 
     <h4>Followers</h4>
-    <p class="alert alert-info" ng-if="!followers.length">{{user.name}} is not being followed by anyone yet.</p>
+    <p class="alert alert-warning" ng-if="followersError">{{followersError}}</p>
     <ul ng-if="followers.length">
         <li ng-repeat="user in followers">{{user.name}}</li>
     </ul>

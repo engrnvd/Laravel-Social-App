@@ -32,17 +32,32 @@
             $scope.following = [];
             $scope.error = null;
 
-            $http.get("api/skill/user/"+user.id).then(function (res) {
-                $scope.skills = res.data;
-            });
+            $http.get("api/skill/user/"+user.id).then(
+                function (res) {
+                    $scope.skills = res.data;
+                },
+                function (res) {
+                    $scope.skillsError = res.data;
+                }
+            );
 
-            $http.get("api/user/"+user.id+"/following").then(function (res) {
-                $scope.following = res.data;
-            });
+            $http.get("api/user/"+user.id+"/following").then(
+                function (res) {
+                    $scope.following = res.data;
+                },
+                function (res) {
+                    $scope.followingError = res.data;
+                }
+            );
 
-            $http.get("api/user/"+user.id+"/followers").then(function (res) {
-                $scope.followers = res.data;
-            });
+            $http.get("api/user/"+user.id+"/followers").then(
+                function (res) {
+                    $scope.followers = res.data;
+                },
+                function (res) {
+                    $scope.followersError = res.data;
+                }
+            );
 
             $scope.follow = function () {
                 $http.get("api/user/follow/"+$scope.user.id).then(function () {

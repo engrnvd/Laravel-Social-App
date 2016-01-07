@@ -2,30 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\SkillRepository;
-use App\Skill;
-use App\User;
+use App\Setting;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class SkillController extends Controller
+class SettingsController extends Controller
 {
-    protected $skills;
-    public function __construct(SkillRepository $skills)
+    public function __construct()
     {
         $this->middleware('jwt.auth');
-        $this->skills = $skills;
-    }
-
-    public function forUser( Request $request, User $user )
-    {
-        $this->authorize("viewSkills", $user);
-        if(!$skills = $this->skills->forUser($user) or $skills->isEmpty())
-            throw new HttpException('404',$user->name." has not mentioned any skills yet.");
-        return $skills;
     }
 
     /**
@@ -35,7 +22,7 @@ class SkillController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->skills->forUser($request->user());
+        return $request->user()->settings;
     }
 
     /**
@@ -45,7 +32,7 @@ class SkillController extends Controller
      */
     public function create()
     {
-        echo __FUNCTION__;
+        //
     }
 
     /**
@@ -56,15 +43,7 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|max:255',
-        ]);
-
-        $request->user()->skills()->create([
-            'name' => $request->name,
-        ]);
-
-        return $this->skills->forUser($request->user());
+        //
     }
 
     /**
@@ -75,7 +54,7 @@ class SkillController extends Controller
      */
     public function show($id)
     {
-        echo __FUNCTION__;
+        //
     }
 
     /**
@@ -86,7 +65,7 @@ class SkillController extends Controller
      */
     public function edit($id)
     {
-        echo __FUNCTION__;
+        //
     }
 
     /**
@@ -96,15 +75,18 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Skill $skill)
+    public function update(Request $request, Setting $setting)
     {
         $this->validate($request, [
-            'name' => 'required|max:255',
+            'who_can_see_my_skills' => 'required|in:'.join(",",Setting::$options),
+            'who_can_see_who_i_am_following' => 'required|in:'.join(",",Setting::$options),
         ]);
-        $this->authorize('owns', $skill);
-        $skill->name = $request->name;
-        $skill->save();
-        return $this->skills->forUser($request->user());
+        \ChromePhp::log($setting->getTable());
+        $this->authorize('owns', $setting);
+        $setting->who_can_see_my_skills = $request->who_can_see_my_skills;
+        $setting->who_can_see_who_i_am_following = $request->who_can_see_who_i_am_following;
+        $setting->save();
+        return "Settings updated.";
     }
 
     /**
@@ -113,10 +95,8 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Skill $skill)
+    public function destroy($id)
     {
-        $this->authorize('owns', $skill);
-        $skill->delete();
-        return $this->skills->forUser($request->user());
+        //
     }
 }

@@ -15,6 +15,11 @@
             $urlRouterProvider.otherwise('/auth');
 
             $stateProvider
+                .state('settings', {
+                    url: '/settings',
+                    templateUrl: '../views/settingsView.html',
+                    controller: 'SettingsController'
+                })
                 .state('users', {
                     url: '/users',
                     templateUrl: '../views/usersView.html',

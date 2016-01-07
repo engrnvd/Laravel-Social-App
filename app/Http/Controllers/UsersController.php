@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class UsersController extends Controller
 {
@@ -23,12 +24,18 @@ class UsersController extends Controller
 
     public function followers(Request $request, User $user)
     {
-        return $user->followers;
+        if(!$followers = $user->followers or $followers->isEmpty())
+            throw new HttpException('404',$user->name." does not have any followers yet.");
+        \ChromePhp::log($followers);
+        $this->authorize("viewFollowedUsers",$user);
+        return $followers;
     }
 
     public function following(Request $request, User $user)
     {
-        return $user->following;
+        if(!$following = $user->following or $following->isEmpty())
+            throw new HttpException('404',$user->name." does not follow anyone yet.");
+        return $following;
     }
 
     public function follow(Request $request, User $user)
